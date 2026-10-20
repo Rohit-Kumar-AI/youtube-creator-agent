@@ -1,0 +1,5 @@
+00:00:00.000 Welcome back. Today I want to show you a common mistake.
+00:00:08.500 Most beginners copy code without understanding what the function returns.
+00:00:17.200 Here is the surprising part: one small print statement can save twenty minutes.
+00:00:27.000 First, reproduce the error. Then inspect the value and fix one thing at a time.
+00:00:39.500 The key lesson is to test the smallest example before changing the whole project.
