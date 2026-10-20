@@ -1,118 +1,123 @@
-# YouTube Creator Agent — CreatorPilot AI
+# YouTube Creator Agent 🚀
 
-**A shared YouTube creator workflow for Claude Code and OpenAI Codex.** Create stronger scripts, improve title/thumbnail packaging, and identify Shorts opportunities with lightweight local Python tools.
+**Open-source YouTube AI agent skills for Claude Code and OpenAI Codex.**
 
-> Independent open-source project. Inspired by the broader ecosystem of YouTube creator agent skills; not affiliated with or a copy of any similarly named project.
+Turn your creator workflow into reusable AI-assisted tasks: brainstorm video ideas, write stronger hooks and scripts, improve title–thumbnail combinations, and discover potential YouTube Shorts from timestamped transcripts.
 
-**GitHub repository:** `Rohit-Kumar-AI/youtube-creator-agent`
+**CreatorPilot AI** provides shared agent instructions and lightweight Python tools you can run locally — without API keys, paid services, or third-party Python dependencies.
 
-**Suggested GitHub topics:** `youtube-agent`, `youtube-agent-skills`, `claude-code`, `codex`, `ai-agents`, `youtube-automation`, `creator-tools`, `python`
+[Features](#features) · [Quick Start](#quick-start) · [Install Skills](#install-skills) · [Examples](#examples) · [Contributing](CONTRIBUTING.md)
 
+## Why CreatorPilot AI?
 
-## What’s included
+- **One shared workflow:** reusable skills designed for Claude Code and Codex.
+- **Local Python utilities:** inspect hooks, check title and thumbnail text, and rank transcript clip candidates.
+- **Transparent heuristics:** understand why a tool flags text instead of trusting an unexplained AI score.
+- **No API keys required:** the included Python utilities work offline with Python 3.10+.
+- **Human-directed creation:** use the results as creative suggestions, then review and edit before publishing.
 
-| Feature | What it does | Command |
-|---|---|---|
-| Hook checker | Scores a video opening against explainable signals: clarity, specificity, tension, and concision | `python tools/creatorpilot.py hook "Most people make this mistake..."` |
-| Title checker | Flags vague/long titles, all-caps, repeated title/thumbnail wording, and missing concrete language | `python tools/creatorpilot.py title "Stop making these Python mistakes" --thumbnail "Python mistakes"` |
-| Transcript moments | Finds timestamped transcript segments and ranks candidate clips using simple signals | `python tools/creatorpilot.py clips examples/sample_transcript.txt` |
-| Agent workflows | Reusable instructions for script planning, packaging, and transcript-to-Shorts workflows | `skills/` |
+## Features
 
-## Quick start
+| Tool or skill | What it helps with |
+|---|---|
+| Hook checker | Evaluate opening lines for clarity, specificity, curiosity, and concision |
+| Title checker | Flag vague or long titles, all-caps text, and repeated title/thumbnail wording |
+| Transcript clip finder | Rank candidate Shorts moments from timestamped text |
+| `yt-script` | Plan video scripts and stronger openings |
+| `yt-package` | Develop complementary titles and thumbnail text |
+| `yt-shorts` | Turn transcript highlights into candidate short-form clips |
 
-Requirements: Python 3.10+ and Git. No third-party Python packages are required.
+> **Important:** The Python utilities use rule-based heuristics, not predictive AI models. They cannot guarantee views, retention, rankings, or virality.
+
+## Quick Start
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Rohit-Kumar-AI/youtube-creator-agent.git
 cd youtube-creator-agent
+```
 
-# Run the tests
+### 2. Run the tests
+
+```bash
 python -m unittest discover -s tests -v
+```
 
-# Check a hook
+### 3. Check a video hook
+
+```bash
 python tools/creatorpilot.py hook "I wasted 30 days learning Python the wrong way."
+```
 
-# Check a title and thumbnail phrase together
+### 4. Check a title and thumbnail phrase
+
+```bash
 python tools/creatorpilot.py title "I learned Python in 30 days" --thumbnail "30 days"
+```
 
-# Find candidate moments from a timestamped transcript
+### 5. Find candidate Shorts moments
+
+```bash
 python tools/creatorpilot.py clips examples/sample_transcript.txt
 ```
 
-If your GitHub username or repository name differs, update the clone URL above.
+No external Python packages are required for these commands.
 
-## Install skills
+## Install Skills
 
-The `SKILL.md` files follow the portable Agent Skills format. Agent discovery paths can differ by tool/version, so install the same skill directories into the appropriate folder.
+The `skills/` directory contains reusable `SKILL.md` instructions.
 
-### Claude Code (user-level)
+- **Claude Code:** copy the skill directories into `~/.claude/skills/`.
+- **OpenAI Codex:** copy them into `~/.codex/skills/` if supported by your installed version.
 
-macOS/Linux/Git Bash:
-```bash
-mkdir -p ~/.claude/skills
-cp -R skills/yt-script skills/yt-package skills/yt-shorts ~/.claude/skills/
-```
+See the installation instructions below for the exact commands. Agent discovery behavior can vary by version, so verify the supported skill path for your setup.
 
-### OpenAI Codex (user-level)
-
-macOS/Linux/Git Bash:
-```bash
-mkdir -p ~/.codex/skills
-cp -R skills/yt-script skills/yt-package skills/yt-shorts ~/.codex/skills/
-```
-
-Restart the agent after installing if it does not discover the new skills. For a project-only install, use the corresponding `.claude/skills/` or `.codex/skills/` directory in your project. Confirm the supported discovery path in the documentation for your installed version.
-
-## Example workflow
-
-1. Draft a rough idea and audience promise.
-2. Use `yt-script` to explore several opening approaches and a script outline.
-3. Use `yt-package` to make title and thumbnail copy complement rather than repeat each other.
-4. Use `yt-shorts` to identify candidate moments from a timestamped transcript.
-5. Run the relevant local checks and revise manually.
-6. Publish only after human review.
-
-## How scores work
-
-- **Hook score (0–100):** transparent rule-based signals, not an ML model. It rewards concrete details, a clear audience/problem, curiosity/tension, and brevity. A score cannot establish likely views or retention.
-- **Title checks:** lightweight text heuristics. They do not measure search volume, audience fit, or thumbnail image quality.
-- **Clip ranking:** ranks timestamped segments using text cues and duration. It does not inspect video/audio and does not produce edited media.
-
-## Example output
+## Project Structure
 
 ```text
-Hook score: 72/100
-Signals:
-  + Has a concrete detail
-  + Contains a curiosity/tension cue
-  - Could identify the audience more clearly
-Advice:
-  Make the audience and promised outcome more explicit.
+youtube-creator-agent/
+├── skills/
+│   ├── yt-script/
+│   ├── yt-package/
+│   └── yt-shorts/
+├── tools/
+│   └── creatorpilot.py
+├── tests/
+├── examples/
+├── docs/
+├── README.md
+├── CONTRIBUTING.md
+└── LICENSE
 ```
 
-Exact scores depend on the input and version; use the tools as a checklist, not a verdict.
+## Design Principles
+
+- Useful without API keys or paid services.
+- Transparent, testable local utilities.
+- Reusable instructions across supported coding agents.
+- No automatic publishing or hidden network activity.
+- Human review before publishing creator content.
 
 ## Roadmap
 
-- [x] Dependency-free hook heuristic
-- [x] Title/thumbnail text linting
-- [x] Timestamped transcript moment suggestions
-- [x] Shared Claude Code / Codex skill content
-- [x] Unit tests and sample input
-- [ ] Optional YouTube Analytics CSV import
-- [ ] More language-aware heuristics (including Hinglish)
-- [ ] CI workflow and release automation
+- [x] Hook-scoring heuristic
+- [x] Title and thumbnail text checks
+- [x] Timestamped transcript clip suggestions
+- [x] Shared agent skill instructions
+- [x] Unit tests and sample transcript
+- [ ] YouTube Analytics CSV analysis
+- [ ] Improved multilingual and Hinglish support
+- [ ] Continuous integration and release automation
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Good first contributions include additional test cases, clearer feedback, localization, and documented examples.
-
-## Safety and privacy
-
-- Tools process only the text/files you pass to them.
-- No network requests, telemetry, credentials, or automatic publishing.
-- Review generated copy and respect copyright, privacy, platform policies, and the rights of people in any source material.
+Contributions are welcome! Add test cases, improve feedback, document new workflows, or help expand language support. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+Released under the MIT License. See [LICENSE](LICENSE).
+
+---
+
+**Built for creators and developers who want practical, reusable YouTube workflows.**
